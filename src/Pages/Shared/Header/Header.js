@@ -1,8 +1,17 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link, NavLink } from "react-router-dom";
 import logo from "../../../assets/logo.svg";
+import { AuthContext } from "../../../Context/AuthProvider/AuthProvider";
 
 const Header = () => {
+  const { user, logOut } = useContext(AuthContext);
+  const handleLogOut = () => {
+    logOut()
+      .then(() => {})
+      .catch((err) => {
+        console.log("log out error:", err);
+      });
+  };
   const menuItems = (
     <>
       <li>
@@ -11,6 +20,29 @@ const Header = () => {
       <li>
         <NavLink to={"/about"}>About</NavLink>
       </li>
+
+      {user && user.uid ? (
+        <>
+          <li>
+            <NavLink to={"/orders"}>Orders</NavLink>
+          </li>
+          <li>
+            <p>{user.displayName}</p>
+          </li>
+          <li>
+            <NavLink onClick={handleLogOut}>Sign Out</NavLink>
+          </li>
+        </>
+      ) : (
+        <>
+          <li>
+            <NavLink to={"/login"}>Login</NavLink>
+          </li>
+          <li>
+            <NavLink to={"/signup"}>Sign UP</NavLink>
+          </li>
+        </>
+      )}
     </>
   );
   return (

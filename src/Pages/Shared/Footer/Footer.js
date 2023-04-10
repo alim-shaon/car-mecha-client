@@ -4,8 +4,8 @@ import logo from "../../../assets/logo.svg";
 
 const Footer = () => {
   return (
-    <footer className="footer p-32 bg-black text-white text-base-content">
-      <div>
+    <footer className="footer p-32 bg-black text-white text-base-content text-center lg:text-left">
+      <div className="justify-items-center">
         <img src={logo} alt="" />
         <p>
           ACME Industries Ltd.
